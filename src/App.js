@@ -1,6 +1,6 @@
 import React, { createContext } from "react";
 import { Grid, AppBar, Toolbar, Typography } from "@material-ui/core";
-import Header from "./Header.jsx";
+import Header from "./Header.js";
 import Table from "./Table";
 import Map from "./Map";
 
