@@ -1,0 +1,54 @@
+/* .eventNames {
+    display: grid;
+    grid-template-columns: fit-content(100px) 1fr;
+    column-gap: .5rem;
+    row-gap: .8rem;
+    font-size: .8em;
+    white-space: pre-wrap;
+    border-right: solid 1px black;
+    height: max-content;
+}
+.timeline {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    column-gap: 1rem;
+    height: 100%;
+    width: 100%;
+    overflow-x: scroll;
+    background-color: red;
+}
+.eventContainer {
+    display: flex;
+    flex-direction: row;
+    overflow-y: scroll;
+    height: 42vh;
+} */
+
+/* .eventNames {
+    display: grid;
+    grid-template-columns: fit-content(100px) 1fr;
+    border-right: solid 1px black;
+    height: max-content;
+} */
+/* .timeline {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    column-gap: 1rem;
+    height: 100%;
+    width: 100%;
+    overflow-x: scroll;
+    background-color: red;
+} */
+.eventContainer {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    row-gap: .8rem;
+    font-size: .8em;
+    white-space: pre-wrap;
+    overflow-y: scroll;
+    height: 42vh;
+    padding-top: .5em;
+}
+.eventContainer > * {
+    border-bottom: solid 1px #bdbdbd ;
+}

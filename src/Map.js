@@ -5,13 +5,13 @@ import {
   GoogleMap,
   Marker
 } from "react-google-maps";
-import { eventLocations } from './eventLocations.js';
-const markers = eventLocations.map( i => <Marker position={{lat: i.lat, lng: i.lng}} />)
+// import { eventLocations } from './eventLocations.js';
+// const markers = eventLocations.map( i => <Marker position={{lat: i.lat, lng: i.lng}} />)
 
 const MyMapComponent = withScriptjs(
   withGoogleMap(props => (
     <GoogleMap defaultZoom={14} defaultCenter={{ lat: 42.7564758, lng: -71.4673018 }}>
-      {markers}
+      {/* {markers} */}
     </GoogleMap>
   ))
 );
