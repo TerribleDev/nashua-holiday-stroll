@@ -9,6 +9,17 @@ import {
   TableRow
 } from "@material-ui/core";
 import { events } from "./Stroll.js";
+
+function Event({ start, end, title, startAsString, endAsString }) {
+  return (
+    <TableCell>
+      {startAsString} - {endAsString}
+      {"\n"}
+      {title}
+    </TableCell>
+  );
+}
+
 /**
  *
  *
@@ -41,38 +52,51 @@ function ConvertEventObjToEvent({ time, title }) {
     endAsString: getTime(end)
   };
 }
-export default function() {
+export default function({ now }) {
   let rows = Object.entries(events).map(([item, eventObjs], index) => {
-    let cells = [
-      <Fragment>
-        <TableCell>{index + 1}</TableCell>
-        <TableCell>{item}</TableCell>
-      </Fragment>
-    ];
     let eventsMaps = eventObjs
       .map(ConvertEventObjToEvent)
-      .map(({ start, end, title, startAsString, endAsString }) => (
-        <TableCell>
-          {startAsString} - {endAsString} {title}
-        </TableCell>
-      ));
-    while(eventsMaps.length < 3) {
-      eventsMaps = eventsMaps.concat([<TableCell />])
-    }
-    return <TableRow>{cells.concat(eventsMaps)}</TableRow>;
+      .sort((a, b) => a.start - b.start)
+      .reduce(
+        (accum, current) => {
+          if (!accum.current && now >= current.start && now <= current.end) {
+            accum.current = current;
+          }
+          if (!accum.upcoming && current.end > now) {
+            accum.upcoming = current;
+          }
+          return accum;
+        },
+        { current: null, upcoming: null }
+      );
+    return (
+      <TableRow>
+        <TableCell>{item}</TableCell>
+        {eventsMaps.current ? (
+          <Event {...eventsMaps.current} />
+        ) : (
+          <TableCell></TableCell>
+        )}
+        {eventsMaps.upcoming ? (
+          <Event {...eventsMaps.upcoming} />
+        ) : (
+          <TableCell></TableCell>
+        )}
+      </TableRow>
+    );
   });
   return (
-    <Table>
-      <TableHead>
-        <TableRow>
-          <TableCell>#</TableCell>
-          <TableCell>Place</TableCell>
-          <TableCell>5:45-6:15</TableCell>
-          <TableCell>7:10-8:10</TableCell>
-          <TableCell>8:35-9:45</TableCell>
-        </TableRow>
-      </TableHead>
-      <TableBody>{rows}</TableBody>
-    </Table>
+    <Grid item xs={12}>
+      <Table padding="none">
+        <TableHead>
+          <TableRow>
+            <TableCell>Place</TableCell>
+            <TableCell>Current</TableCell>
+            <TableCell>Upcoming</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>{rows}</TableBody>
+      </Table>
+    </Grid>
   );
 }
